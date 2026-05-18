@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../data/app_data.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,7 +18,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final appData = Provider.of<AppData>(context);
 
+    final now = DateTime.now();
+
+    final formattedDate =
+        DateFormat('EEEE, MMM d').format(now).toUpperCase();
+
     return Scaffold(
+
+      backgroundColor: const Color(0xFF070B1A),
 
       body: SafeArea(
 
@@ -36,12 +45,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 // DATE
                 Text(
-                  "SUNDAY, MAY 17",
-                  style: TextStyle(
-                    color: Colors.grey.shade400,
+                  formattedDate,
+
+                  style: GoogleFonts.poppins(
+                    color: Colors.grey.shade500,
+                    fontSize: 13,
                     letterSpacing: 1.5,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
 
@@ -53,10 +63,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
 
                     Text(
-                      "Hey, Aish 👩‍🎓👋",
-                      style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
+                      "Hey, Aish 👋",
+
+                      style: GoogleFonts.poppins(
+                        fontSize: 34,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                        height: 1,
                       ),
                     ),
 
