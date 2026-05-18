@@ -184,7 +184,7 @@ class AwardsScreen extends StatelessWidget {
                 subtitle:
                 "Earn over 10,000 XP points.",
                 icon: Icons.flash_on,
-                unlocked: appData.xp >= 10000,
+                unlocked: appData.totalXp >= 10000,
                 color: Colors.greenAccent,
               ),
 

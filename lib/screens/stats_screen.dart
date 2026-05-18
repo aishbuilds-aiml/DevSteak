@@ -186,7 +186,7 @@ class StatsScreen extends StatelessWidget {
                   statCard(
                     icon: Icons.access_time,
                     title: "CODING HOURS",
-                    value: "${appData.xp ~/ 50}h",
+                    value: "${appData.totalXp ~/ 50}h",
                     subtitle: "this year",
                     color: Colors.deepPurple,
                   ),
@@ -202,7 +202,7 @@ class StatsScreen extends StatelessWidget {
                   statCard(
                     icon: Icons.flash_on,
                     title: "TOTAL XP",
-                    value: "${appData.xp}",
+                    value: "${appData.totalXp}",
                     subtitle: "Level ${appData.level}",
                     color: Colors.green,
                   ),

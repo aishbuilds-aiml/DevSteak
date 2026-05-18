@@ -35,50 +35,120 @@ class _MainNavigationState
 
       body: screens[currentIndex],
 
-      bottomNavigationBar: Container(
-        margin: const EdgeInsets.all(16),
+      bottomNavigationBar: Padding(
 
-        padding: const EdgeInsets.symmetric(
-          vertical: 10,
-        ),
+        padding: const EdgeInsets.all(18),
 
-        decoration: BoxDecoration(
-          color: const Color(0xFF111936),
+        child: Container(
 
-          borderRadius: BorderRadius.circular(30),
-        ),
+          height: 82,
 
-        child: Row(
-          mainAxisAlignment:
-          MainAxisAlignment.spaceAround,
+          decoration: BoxDecoration(
 
-          children: [
+            borderRadius: BorderRadius.circular(34),
 
-            navItem(
-              Icons.home,
-              0,
+            gradient: LinearGradient(
+
+              colors: [
+
+                Colors.white.withOpacity(0.08),
+                Colors.white.withOpacity(0.03),
+              ],
             ),
 
-            navItem(
-              Icons.bar_chart,
-              1,
+            border: Border.all(
+              color: Colors.white10,
             ),
 
-            navItem(
-              Icons.emoji_events,
-              2,
-            ),
+            boxShadow: [
 
-            navItem(
-              Icons.notifications,
-              3,
-            ),
+              BoxShadow(
+                color: Colors.black.withOpacity(0.35),
+                blurRadius: 30,
+                spreadRadius: 1,
+              ),
+            ],
+          ),
 
-            navItem(
-              Icons.person,
-              4,
+          child: ClipRRect(
+
+            borderRadius: BorderRadius.circular(34),
+              
+            child: Theme(
+
+              data: Theme.of(context).copyWith(
+
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+              ),
+
+              child: BottomNavigationBar(
+
+                currentIndex: currentIndex,
+
+                onTap: (index) {
+
+                  setState(() {
+                    currentIndex = index;
+                  });
+                },
+
+                type: BottomNavigationBarType.fixed,
+
+                backgroundColor: Colors.transparent,
+
+                elevation: 0,
+
+                enableFeedback: false,
+
+                selectedLabelStyle: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                ),
+
+                unselectedLabelStyle: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                ),
+
+                selectedItemColor:
+                Colors.deepPurpleAccent,
+
+                unselectedItemColor:
+                Colors.white54,
+
+                showSelectedLabels: true,
+                showUnselectedLabels: true,
+
+                items: const [
+
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                    label: "Home",
+                  ),
+
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.bar_chart),
+                    label: "Stats",
+                  ),
+
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.emoji_events),
+                    label: "Awards",
+                  ),
+
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.notifications),
+                    label: "Inbox",
+                  ),
+
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.person),
+                    label: "Profile",
+                  ),
+                ],
+              ),
             ),
-          ],
+          ),
         ),
       ),
     );

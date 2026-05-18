@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../data/app_data.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:fl_chart/fl_chart.dart';
+
+import '../data/app_data.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,7 +23,12 @@ class _HomeScreenState extends State<HomeScreen> {
     final now = DateTime.now();
 
     final formattedDate =
-        DateFormat('EEEE, MMM d').format(now).toUpperCase();
+        DateFormat('EEEE, MMM d')
+            .format(now)
+            .toUpperCase();
+
+    final progress =
+    appData.dailyProgress.clamp(0.0, 1.0);
 
     return Scaffold(
 
@@ -31,39 +38,45 @@ class _HomeScreenState extends State<HomeScreen> {
 
         child: SingleChildScrollView(
 
-          child: Padding(
+          padding: const EdgeInsets.all(20),
 
-            padding: const EdgeInsets.all(20),
+          child: Column(
 
-            child: Column(
+            crossAxisAlignment:
+            CrossAxisAlignment.start,
 
-              crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
 
-              children: [
+              const SizedBox(height: 10),
 
-                const SizedBox(height: 10),
+              // DATE
+              Text(
+                formattedDate,
 
-                // DATE
-                Text(
-                  formattedDate,
-
-                  style: GoogleFonts.poppins(
-                    color: Colors.grey.shade500,
-                    fontSize: 13,
-                    letterSpacing: 1.5,
-                    fontWeight: FontWeight.w500,
-                  ),
+                style: GoogleFonts.poppins(
+                  color: Colors.grey.shade500,
+                  fontSize: 13,
+                  letterSpacing: 1.5,
+                  fontWeight: FontWeight.w500,
                 ),
+              ),
 
-                const SizedBox(height: 10),
+              const SizedBox(height: 14),
 
-                // HEADING
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+              // HEADER
+              Row(
 
-                    Text(
+                mainAxisAlignment:
+                MainAxisAlignment.spaceBetween,
+
+                children: [
+
+                  Expanded(
+
+                    child: Text(
                       "Hey, Aish 👋",
+
+                      overflow: TextOverflow.ellipsis,
 
                       style: GoogleFonts.poppins(
                         fontSize: 34,
@@ -72,317 +85,735 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 1,
                       ),
                     ),
+                  ),
 
-                    CircleAvatar(
-                      radius: 24,
-                      backgroundColor: Colors.deepPurple,
+                  const SizedBox(width: 16),
+
+                  Container(
+
+                    width: 68,
+                    height: 68,
+
+                    decoration: BoxDecoration(
+
+                      shape: BoxShape.circle,
+
+                      gradient: const LinearGradient(
+
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+
+                        colors: [
+                          Color(0xFF9B6DFF),
+                          Color(0xFF6D28D9),
+                        ],
+                      ),
+
+                      boxShadow: [
+
+                        BoxShadow(
+                          color:
+                          Colors.deepPurple.withOpacity(0.45),
+
+                          blurRadius: 25,
+                          spreadRadius: 2,
+                        ),
+                      ],
+                    ),
+
+                    child: Center(
+
                       child: Text(
                         "AK",
-                        style: TextStyle(
+
+                        style: GoogleFonts.poppins(
                           fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                          color: Colors.white,
                         ),
                       ),
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 28),
+
+              // HERO CARD
+              Container(
+
+                padding: const EdgeInsets.all(20),
+
+                decoration: BoxDecoration(
+
+                  borderRadius:
+                  BorderRadius.circular(34),
+
+                  gradient: const LinearGradient(
+
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+
+                    colors: [
+                      Color(0xFF121938),
+                      Color(0xFF1B1245),
+                    ],
+                  ),
+
+                  boxShadow: [
+
+                    BoxShadow(
+                      color:
+                      Colors.deepPurple.withOpacity(0.18),
+
+                      blurRadius: 40,
+                      spreadRadius: 2,
                     ),
                   ],
                 ),
 
-                const SizedBox(height: 30),
+                child: Column(
 
-                // MAIN CARD
-                Container(
+                  children: [
 
-                  padding: const EdgeInsets.all(24),
+                    Row(
 
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    gradient: const LinearGradient(
-                      colors: [
-                        Color(0xFF111B44),
-                        Color(0xFF1A103A),
-                      ],
-                    ),
-                  ),
+                      crossAxisAlignment:
+                      CrossAxisAlignment.start,
 
-                  child: Column(
+                      children: [
 
-                    children: [
+                        // PROGRESS RING
+                        SizedBox(
 
-                      Row(
+                          width: 118,
+                          height: 118,
 
-                        children: [
+                          child: Stack(
 
-                          // CIRCLE
-                          Expanded(
+                            alignment: Alignment.center,
 
-                            child: Container(
+                            children: [
 
-                              height: 170,
-                              width: 170,
+                              SizedBox(
 
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: Colors.greenAccent,
-                                  width: 10,
+                                width: 118,
+                                height: 118,
+
+                                child:
+                                CircularProgressIndicator(
+
+                                  value: progress,
+
+                                  strokeWidth: 10,
+
+                                  backgroundColor:
+                                  Colors.white12,
+
+                                  valueColor:
+                                  const AlwaysStoppedAnimation(
+                                    Colors.greenAccent,
+                                  ),
                                 ),
                               ),
 
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                              Column(
+
+                                mainAxisAlignment:
+                                MainAxisAlignment.center,
+
                                 children: [
 
                                   Text(
-                                    "${((appData.xp / 15000) * 100).toInt()}%",
-                                    style: const TextStyle(
-                                      fontSize: 36,
-                                      fontWeight: FontWeight.bold,
+                                    "${(progress * 100).toInt()}%",
+
+                                    style:
+                                    GoogleFonts.poppins(
+                                      fontSize: 28,
+                                      fontWeight:
+                                      FontWeight.bold,
                                     ),
                                   ),
 
-                                  const SizedBox(height: 5),
-
                                   Text(
                                     "DAILY GOAL",
-                                    style: TextStyle(
-                                      color: Colors.grey.shade400,
+
+                                    style:
+                                    GoogleFonts.poppins(
+                                      color:
+                                      Colors.grey.shade500,
+
+                                      fontSize: 11,
+
                                       letterSpacing: 1,
                                     ),
                                   ),
                                 ],
                               ),
-                            ),
+                            ],
                           ),
+                        ),
 
-                          const SizedBox(width: 10),
+                        const SizedBox(width: 16),
 
-                          // STREAK + XP
-                          Expanded(
+                        // RIGHT SECTION
+                        Expanded(
 
-                            child: Column(
+                          child: Column(
 
-                              children: [
+                            crossAxisAlignment:
+                            CrossAxisAlignment.start,
 
-                                Container(
+                            children: [
 
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 10,
-                                    vertical: 12,
-                                  ),
+                              // STREAK PILL
+                              Container(
 
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFF1C1736),
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-
-                                  child: Row(
-
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.center,
-
-                                    children: [
-
-                                      const Icon(
-                                        Icons.local_fire_department,
-                                        color: Colors.orange,
-                                      ),
-
-                                      const SizedBox(width: 8),
-
-                                      Text(
-                                        "${appData.streak} day streak",
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                padding:
+                                const EdgeInsets.symmetric(
+                                  horizontal: 14,
+                                  vertical: 10,
                                 ),
 
-                                const SizedBox(height: 20),
+                                decoration: BoxDecoration(
 
-                                Row(
+                                  color: Colors.white10,
+
+                                  borderRadius:
+                                  BorderRadius.circular(22),
+                                ),
+
+                                child: Row(
+
+                                  mainAxisSize:
+                                  MainAxisSize.min,
+
+                                  children: [
+
+                                    const Icon(
+                                      Icons.local_fire_department,
+                                      color: Colors.orange,
+                                      size: 20,
+                                    ),
+
+                                    const SizedBox(width: 6),
+
+                                    Flexible(
+
+                                      child: Text(
+                                        "${appData.streak} day streak",
+
+                                        overflow:
+                                        TextOverflow.ellipsis,
+
+                                        style:
+                                        GoogleFonts.poppins(
+                                          fontWeight:
+                                          FontWeight.w600,
+
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              const SizedBox(height: 18),
+
+                              Container(
+
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 14,
+                                  vertical: 12,
+                                ),
+
+                                decoration: BoxDecoration(
+
+                                  color: Colors.white10,
+
+                                  borderRadius:
+                                  BorderRadius.circular(20),
+                                ),
+
+                                child: Row(
+
                                   mainAxisAlignment:
                                   MainAxisAlignment.spaceBetween,
 
                                   children: [
 
-                                    const Text(
-                                      "XP today",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                      ),
+                                    Column(
+
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+
+                                      children: [
+
+                                        Text(
+                                          "Focus Session",
+
+                                          style: GoogleFonts.poppins(
+                                            color: Colors.white70,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+
+                                        const SizedBox(height: 4),
+
+                                        Text(
+                                          appData.formattedTime,
+
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                          ),
+                                        ),
+                                      ],
                                     ),
 
-                                    Text(
-                                      "${appData.xp} / 250",
-                                      style: TextStyle(
-                                        color: Colors.greenAccent.shade400,
-                                        fontWeight: FontWeight.bold,
+                                    GestureDetector(
+
+                                      onTap: () {
+
+                                        if (appData.sessionRunning) {
+
+                                          appData.stopSession();
+
+                                        } else {
+
+                                          appData.startSession();
+                                        }
+                                      },
+
+                                      child: Container(
+
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 14,
+                                          vertical: 10,
+                                        ),
+
+                                        decoration: BoxDecoration(
+
+                                          gradient: LinearGradient(
+
+                                            colors:
+                                            appData.sessionRunning
+                                                ? [
+                                              Colors.redAccent,
+                                              Colors.deepOrange,
+                                            ]
+                                                : [
+                                              Colors.greenAccent,
+                                              Colors.green,
+                                            ],
+                                          ),
+
+                                          borderRadius:
+                                          BorderRadius.circular(18),
+                                        ),
+
+                                        child: Text(
+
+                                          appData.sessionRunning
+                                              ? "Stop"
+                                              : "Start",
+
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ],
                                 ),
+                              ),
 
-                                const SizedBox(height: 10),
+                              const SizedBox(height: 18),
 
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
+                              Text(
+                                "XP today",
 
-                                  child: LinearProgressIndicator(
-                                    minHeight: 10,
-                                    value: appData.xp / 15000,
-                                    backgroundColor: Colors.white12,
-                                    valueColor:
-                                    const AlwaysStoppedAnimation(
-                                      Colors.greenAccent,
-                                    ),
+                                style:
+                                GoogleFonts.poppins(
+                                  color:
+                                  Colors.grey.shade400,
+
+                                  fontSize: 14,
+                                ),
+                              ),
+
+                              const SizedBox(height: 6),
+
+                              Text(
+                                "+${appData.todayXp} XP",
+
+                                overflow:
+                                TextOverflow.ellipsis,
+
+                                style:
+                                GoogleFonts.poppins(
+                                  color:
+                                  Colors.greenAccent,
+
+                                  fontWeight:
+                                  FontWeight.bold,
+
+                                  fontSize: 22,
+                                ),
+                              ),
+
+                              const SizedBox(height: 16),
+
+                              ClipRRect(
+
+                                borderRadius:
+                                BorderRadius.circular(20),
+
+                                child:
+                                LinearProgressIndicator(
+
+                                  value: progress,
+
+                                  minHeight: 10,
+
+                                  backgroundColor:
+                                  Colors.white12,
+
+                                  valueColor:
+                                  const AlwaysStoppedAnimation(
+                                    Colors.greenAccent,
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      const SizedBox(height: 30),
-
-                      // COMPLETE BUTTON
-                      Container(
-
-                        width: double.infinity,
-
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 18,
-                        ),
-
-                        decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [
-                              Colors.orange,
-                              Colors.deepOrange,
+                              ),
                             ],
                           ),
-
-                          borderRadius: BorderRadius.circular(30),
                         ),
+                      ],
+                    ),
 
-                        child: const Center(
+                    const SizedBox(height: 22),
 
-                          child: Text(
-                            "✓ Day complete! You're on fire 🔥",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
+                    // COMPLETE BUTTON
+                    Container(
+
+                      width: double.infinity,
+
+                      padding:
+                      const EdgeInsets.symmetric(
+                        vertical: 18,
+                      ),
+
+                      decoration: BoxDecoration(
+
+                        borderRadius:
+                        BorderRadius.circular(26),
+
+                        gradient: const LinearGradient(
+
+                          colors: [
+                            Color(0xFFFF8A1F),
+                            Color(0xFFFF4D4D),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
 
-                const SizedBox(height: 30),
-
-                // QUICK ACTIONS
-                Row(
-
-                  mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween,
-
-                  children: [
-
-                    buildActionButton(Icons.code, "Code"),
-                    buildActionButton(Icons.menu_book, "Learn"),
-                    buildActionButton(Icons.coffee, "Break"),
-                    buildActionButton(Icons.flash_on, "Boost"),
-                  ],
-                ),
-
-                const SizedBox(height: 30),
-
-                // THIS WEEK CARD
-                Container(
-
-                  height: 230,
-
-                  padding: const EdgeInsets.all(20),
-
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF101633),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-
-                  child: Column(
-
-                    crossAxisAlignment:
-                    CrossAxisAlignment.start,
-
-                    children: [
-
-                      Row(
+                      child: Row(
 
                         mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
+                        MainAxisAlignment.center,
 
                         children: [
 
-                          const Text(
-                            "This week",
-                            style: TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          const Icon(
+                            Icons.check,
+                            color: Colors.white,
                           ),
+
+                          const SizedBox(width: 10),
 
                           Text(
-                            "+24% vs last week",
-                            style: TextStyle(
-                              color: Colors.greenAccent.shade400,
-                              fontWeight: FontWeight.bold,
+                            "Day complete! You're on fire 🔥",
+
+                            style:
+                            GoogleFonts.poppins(
+                              fontWeight:
+                              FontWeight.bold,
+
+                              fontSize: 15,
                             ),
                           ),
                         ],
                       ),
+                    ),
+                  ],
+                ),
+              ),
 
-                      const Spacer(),
+              const SizedBox(height: 30),
 
-                      Row(
+              // ACTION BUTTONS
+              Row(
 
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceAround,
+                mainAxisAlignment:
+                MainAxisAlignment.spaceBetween,
 
-                        children: const [
+                children: [
 
-                          Text("M"),
-                          Text("T"),
-                          Text("W"),
-                          Text("T"),
-                          Text("F"),
-                          Text("S"),
-                          Text("S"),
-                        ],
-                      ),
+                  buildActionButton(
+                    Icons.code,
+                    "Code",
+                  ),
+
+                  buildActionButton(
+                    Icons.menu_book,
+                    "Learn",
+                  ),
+
+                  buildActionButton(
+                    Icons.coffee,
+                    "Break",
+                  ),
+
+                  buildActionButton(
+                    Icons.flash_on,
+                    "Boost",
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 30),
+
+              // THIS WEEK CARD
+              Container(
+
+                padding: const EdgeInsets.all(22),
+
+                decoration: BoxDecoration(
+
+                  borderRadius:
+                  BorderRadius.circular(32),
+
+                  gradient: const LinearGradient(
+
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+
+                    colors: [
+                      Color(0xFF101632),
+                      Color(0xFF171F45),
                     ],
                   ),
+
+                  boxShadow: [
+
+                    BoxShadow(
+                      color:
+                      Colors.deepPurple.withOpacity(0.12),
+
+                      blurRadius: 30,
+                    ),
+                  ],
                 ),
 
-                const SizedBox(height: 100),
-              ],
-            ),
+                child: Column(
+
+                  crossAxisAlignment:
+                  CrossAxisAlignment.start,
+
+                  children: [
+
+                    Row(
+
+                      mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
+
+                      children: [
+
+                        Text(
+                          "This week",
+
+                          style:
+                          GoogleFonts.poppins(
+                            fontSize: 28,
+                            fontWeight:
+                            FontWeight.bold,
+                          ),
+                        ),
+
+                        Text(
+                          "+24% vs last week",
+
+                          style:
+                          GoogleFonts.poppins(
+                            color:
+                            Colors.greenAccent,
+
+                            fontWeight:
+                            FontWeight.w600,
+
+                            fontSize: 13,
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 24),
+
+                    SizedBox(
+
+                      height: 120,
+
+                      child: LineChart(
+
+                        LineChartData(
+
+                          gridData:
+                          const FlGridData(show: false),
+
+                          titlesData:
+                          const FlTitlesData(show: false),
+
+                          borderData:
+                          FlBorderData(show: false),
+
+                          lineBarsData: [
+
+                            LineChartBarData(
+
+                              spots: const [
+
+                                FlSpot(0, 3),
+                                FlSpot(1, 2),
+                                FlSpot(2, 5),
+                                FlSpot(3, 3.5),
+                                FlSpot(4, 5),
+                                FlSpot(5, 4),
+                                FlSpot(6, 6),
+                              ],
+
+                              isCurved: true,
+
+                              color: Colors.greenAccent,
+
+                              barWidth: 4,
+
+                              dotData:
+                              const FlDotData(show: false),
+
+                              belowBarData: BarAreaData(
+
+                                show: true,
+
+                                gradient: LinearGradient(
+
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+
+                                  colors: [
+
+                                    Colors.greenAccent
+                                        .withOpacity(0.35),
+
+                                    Colors.transparent,
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    Row(
+
+                      mainAxisAlignment:
+                      MainAxisAlignment.spaceAround,
+
+                      children: [
+
+                        dayText("M"),
+                        dayText("T"),
+                        dayText("W"),
+                        dayText("T"),
+                        dayText("F"),
+                        dayText("S"),
+                        dayText("S"),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 120),
+            ],
           ),
         ),
       ),
 
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: Container(
 
-        backgroundColor: Colors.deepPurple,
+        width: 78,
+        height: 78,
 
-        onPressed: () {
-          appData.codeToday();
-        },
+        decoration: BoxDecoration(
 
-        child: const Icon(Icons.add),
+          shape: BoxShape.circle,
+
+          gradient: const LinearGradient(
+
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+
+            colors: [
+              Color(0xFF8B5CF6),
+              Color(0xFF6D28D9),
+            ],
+          ),
+
+          boxShadow: [
+
+            BoxShadow(
+              color:
+              Colors.deepPurple.withOpacity(0.5),
+
+              blurRadius: 30,
+              spreadRadius: 3,
+            ),
+          ],
+        ),
+
+        child: FloatingActionButton(
+
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+
+          onPressed: () {
+            appData.completeSession();
+          },
+
+          child: const Icon(
+            Icons.add,
+            size: 34,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget dayText(String text) {
+
+    return Text(
+
+      text,
+
+      style: GoogleFonts.poppins(
+        color: Colors.white54,
+        fontWeight: FontWeight.w500,
       ),
     );
   }
@@ -392,37 +823,60 @@ class _HomeScreenState extends State<HomeScreen> {
       String label,
       ) {
 
-    return Container(
+    return Column(
 
-      width: 75,
-      height: 75,
+      children: [
 
-      decoration: BoxDecoration(
-        color: const Color(0xFF151B3B),
-        borderRadius: BorderRadius.circular(24),
-      ),
+        Container(
 
-      child: Column(
+          width: 74,
+          height: 74,
 
-        mainAxisAlignment: MainAxisAlignment.center,
+          decoration: BoxDecoration(
 
-        children: [
+            shape: BoxShape.circle,
 
-          Icon(
-            icon,
-            color: Colors.deepPurpleAccent,
-          ),
+            gradient: const LinearGradient(
 
-          const SizedBox(height: 8),
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
 
-          Text(
-            label,
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
+              colors: [
+                Color(0xFF7B61FF),
+                Color(0xFF5B3FD0),
+              ],
             ),
+
+            boxShadow: [
+
+              BoxShadow(
+                color:
+                Colors.deepPurple.withOpacity(0.35),
+
+                blurRadius: 20,
+                spreadRadius: 1,
+              ),
+            ],
           ),
-        ],
-      ),
+
+          child: Icon(
+            icon,
+            color: Colors.white,
+            size: 30,
+          ),
+        ),
+
+        const SizedBox(height: 10),
+
+        Text(
+          label,
+
+          style: GoogleFonts.poppins(
+            fontWeight: FontWeight.w600,
+            fontSize: 14,
+          ),
+        ),
+      ],
     );
   }
 }
