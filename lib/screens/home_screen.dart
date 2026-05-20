@@ -147,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 decoration: BoxDecoration(
 
                   borderRadius:
-                  BorderRadius.circular(34),
+                  BorderRadius.circular(36),
 
                   gradient: const LinearGradient(
 
@@ -155,19 +155,25 @@ class _HomeScreenState extends State<HomeScreen> {
                     end: Alignment.bottomRight,
 
                     colors: [
-                      Color(0xFF121938),
-                      Color(0xFF1B1245),
+                      Color(0xFF111B44),
+                      Color(0xFF1A103A),
                     ],
                   ),
 
                   boxShadow: [
 
                     BoxShadow(
-                      color:
-                      Colors.deepPurple.withOpacity(0.18),
+                      color: Colors.deepPurple.withOpacity(0.22),
+                      blurRadius: 50,
+                      spreadRadius: 4,
+                      offset: const Offset(0, 20),
+                    ),
 
+                    BoxShadow(
+                      color: Colors.blueAccent.withOpacity(0.08),
                       blurRadius: 40,
                       spreadRadius: 2,
+                      offset: const Offset(-10, -10),
                     ),
                   ],
                 ),
@@ -195,6 +201,26 @@ class _HomeScreenState extends State<HomeScreen> {
 
                             children: [
 
+                              Container(
+
+                                width: 118,
+                                height: 118,
+
+                                decoration: BoxDecoration(
+
+                                  shape: BoxShape.circle,
+
+                                  boxShadow: [
+
+                                    BoxShadow(
+                                      color: Colors.greenAccent.withOpacity(0.25),
+                                      blurRadius: 30,
+                                      spreadRadius: 6,
+                                    ),
+                                  ],
+                                ),
+                              ),
+
                               SizedBox(
 
                                 width: 118,
@@ -205,7 +231,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                   value: progress,
 
-                                  strokeWidth: 10,
+                                  strokeWidth: 12,
 
                                   backgroundColor:
                                   Colors.white12,
@@ -318,120 +344,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ],
                                 ),
                               ),
-
+                              
                               const SizedBox(height: 18),
-
-                              Container(
-
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 14,
-                                  vertical: 12,
-                                ),
-
-                                decoration: BoxDecoration(
-
-                                  color: Colors.white10,
-
-                                  borderRadius:
-                                  BorderRadius.circular(20),
-                                ),
-
-                                child: Row(
-
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-
-                                  children: [
-
-                                    Column(
-
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-
-                                      children: [
-
-                                        Text(
-                                          "Focus Session",
-
-                                          style: GoogleFonts.poppins(
-                                            color: Colors.white70,
-                                            fontSize: 12,
-                                          ),
-                                        ),
-
-                                        const SizedBox(height: 4),
-
-                                        Text(
-                                          appData.formattedTime,
-
-                                          style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-
-                                    GestureDetector(
-
-                                      onTap: () {
-
-                                        if (appData.sessionRunning) {
-
-                                          appData.stopSession();
-
-                                        } else {
-
-                                          appData.startSession();
-                                        }
-                                      },
-
-                                      child: Container(
-
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 14,
-                                          vertical: 10,
-                                        ),
-
-                                        decoration: BoxDecoration(
-
-                                          gradient: LinearGradient(
-
-                                            colors:
-                                            appData.sessionRunning
-                                                ? [
-                                              Colors.redAccent,
-                                              Colors.deepOrange,
-                                            ]
-                                                : [
-                                              Colors.greenAccent,
-                                              Colors.green,
-                                            ],
-                                          ),
-
-                                          borderRadius:
-                                          BorderRadius.circular(18),
-                                        ),
-
-                                        child: Text(
-
-                                          appData.sessionRunning
-                                              ? "Stop"
-                                              : "Start",
-
-                                          style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-
-                              const SizedBox(height: 18),
-
+                              
                               Text(
                                 "XP today",
 
@@ -836,27 +751,29 @@ class _HomeScreenState extends State<HomeScreen> {
 
             shape: BoxShape.circle,
 
+            boxShadow: [
+
+              BoxShadow(
+                color: Colors.deepPurpleAccent
+                    .withOpacity(0.35),
+
+                blurRadius: 25,
+                spreadRadius: 2,
+
+              ),
+            ],
+
             gradient: const LinearGradient(
 
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
 
               colors: [
-                Color(0xFF7B61FF),
-                Color(0xFF5B3FD0),
+                Color(0xFF9B5CFF),
+                Color(0xFF6A3CFF),
               ],
             ),
-
-            boxShadow: [
-
-              BoxShadow(
-                color:
-                Colors.deepPurple.withOpacity(0.35),
-
-                blurRadius: 20,
-                spreadRadius: 1,
-              ),
-            ],
+            
           ),
 
           child: Icon(
